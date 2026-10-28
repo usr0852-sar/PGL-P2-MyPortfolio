@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:pgl_p2_myportfolio/widgets/welcome.dart';
+import 'package:pgl_p2_myportfolio/widgets/app_router.dart';
 
-final GoRouter router = GoRouter(
-  routes: [
-    GoRoute(path: '/', builder: (context, state) => const Welcome()),
-  ],
-);
 void main() {
   runApp(const MyApp());
 }
@@ -19,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      routerConfig: router,
+      routerConfig: appRouter,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'app_drawer.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
@@ -6,6 +7,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -40,7 +42,7 @@ class Welcome extends StatelessWidget {
                       ),
                       SizedBox(height: 12),
                       Text(
-                        'Descubre, guarda y gestiona\nlos platos típicos de Canarias',
+                        'Descubre, guarda y gestiona los platos típicos de Canarias',
                         style: TextStyle(color: Colors.white, fontSize: 16),
                       ),
                     ],
@@ -56,20 +58,25 @@ class Welcome extends StatelessWidget {
             child: SafeArea(
               top: false,
               child: Center(
-                child: ElevatedButton.icon(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: const Color(0xFFFF751F),
-                    foregroundColor: Colors.white,
-                    shape: const StadiumBorder(),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 28,
-                      vertical: 14,
+                child: Builder(
+                  builder: (context) => ElevatedButton.icon(
+                    onPressed: () => Scaffold.of(context).openDrawer(),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFFF751F),
+                      foregroundColor: Colors.white,
+                      shape: const StadiumBorder(),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 28,
+                        vertical: 14,
+                      ),
                     ),
+                    label: const Text('EXPLORAR PLATOS'),
+                    icon: const Icon(
+                      Icons.arrow_forward,
+                      color: Color(0xFF7ED957),
+                    ),
+                    iconAlignment: IconAlignment.end,
                   ),
-                  label: const Text('EXPLORAR PLATOS'),
-                  icon: const Icon(Icons.arrow_forward, color: Color(0xFF7ED957)),
-                  iconAlignment: IconAlignment.end,
                 ),
               ),
             ),
