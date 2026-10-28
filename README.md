@@ -1,17 +1,27 @@
-# pgl_p2_myportfolio
+# PGL-P2-MyPortfolio
 
-A new Flutter project.
+App Flutter "¡Échale mojo niño!" sobre gastronomía canaria. Tarea 1: navegación.
 
-## Getting Started
+## Qué incluye
 
-This project is a starting point for a Flutter application.
+- Navegación con **Drawer** y **go_router** (Inicio y Portfolio).
+- Pantalla de **bienvenida**, según el diseño de la tarea anterior y además portfolio de la primera página hecha.
+- Pantalla de **Portfolio**, adaptada a la paleta del nuevo diseño, es decir, los colores.
 
-A few resources to get you started if this is your first Flutter project:
+## Estructura
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+lib/
+├── main.dart
+├── app_router.dart
+└── widgets/ (drawer, welcome, portfolio y sus componentes)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Capturas
+
+| Bienvenida | Drawer |
+|---|---|
+| ![Bienvenida](assets/images/Pantalla-welcome.png) | ![Drawer](assets/images/drawer.png) |
+
+| Portfolio: hobbies | Portfolio: secreto |
+|---|---|
+| ![Hobbies](assets/images/portfolio.png) | ![Secreto](assets/images/Sección%20secreta.png) |
+
