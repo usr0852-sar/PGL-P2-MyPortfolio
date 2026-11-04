@@ -1,27 +1,29 @@
-# PGL-P2-MyPortfolio
+PGL-P2-MyPortfolio
 
-App Flutter "¡Échale mojo niño!" sobre gastronomía canaria. Tarea 1: navegación.
+App Flutter de gastronomía canaria (Sabores Canarias), desarrollada por tareas.
 
-## Qué incluye
+Tarea 3: Pantalla CRUD de platos
 
-- Navegación con **Drawer** y **go_router** (Inicio y Portfolio).
-- Pantalla de **bienvenida**, según el diseño de la tarea anterior y además portfolio de la primera página hecha.
-- Pantalla de **Portfolio**, adaptada a la paleta del nuevo diseño, es decir, los colores.
+Rama: P2-Tarea3-Formulario
 
-## Estructura
+Funcionalidades
+- Pantalla Gestión de platos accesible desde el Drawer (ruta /crud).
+- Lista dinámica de platos.
+- Botón + que abre un modal (AlertDialog) para añadir un plato:
+- Nombre (obligatorio)
+- Descripción breve (máx. 60 caracteres)
+- Categoría (Entrante, Principal, Postre)
+- Imagen al lado de cada plato según su categoría.
+- Botón de borrar en cada plato, con aviso (SnackBar).
+- Marcador con el total de platos en la barra superior.
 
-lib/
-├── main.dart
-├── app_router.dart
-└── widgets/ (drawer, welcome, portfolio y sus componentes)
+Capturas de lo hecho:
 
-## Capturas
+Drawer:
+ ![Drawer](assets/images/drawerManagement.png)
 
-| Bienvenida | Drawer |
-|---|---|
-| ![Bienvenida](assets/images/Pantalla-welcome.png) | ![Drawer](assets/images/drawer.png) |
+Management:
+ ![Plate](assets/images/plateManagement.png)
 
-| Portfolio: hobbies | Portfolio: secreto |
-|---|---|
-| ![Hobbies](assets/images/portfolio.png) | ![Secreto](assets/images/Sección%20secreta.png) |
-
+Delete:
+ ![Delete](assets/images/deletePlate.png)

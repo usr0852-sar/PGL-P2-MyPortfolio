@@ -66,4 +66,10 @@ flutter:
     - assets/images/Pantalla-welcome.png
     - assets/images/portfolio.png
     - assets/images/Sección secreta.png
+    - assets/images/entrantes.jpg
+    - assets/images/principales.jpg
+    - assets/images/postres.jpg
+    - assets/images/drawerManagement.png
+    - assets/images/plateManagement.png
+    - assets/images/deletePlate.png
 

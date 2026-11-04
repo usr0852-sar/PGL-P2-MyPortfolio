@@ -53,8 +53,8 @@ class _PortfolioState extends State<Portfolio> {
               child: Padding(
                 padding: const EdgeInsets.all(10),
                 child: opcionBody == 0
-                    ? HobbiesList() // <-
-                    : const SecretSection(), // <-
+                    ? HobbiesList() 
+                    : const SecretSection(), 
               ),
             ),
           ],

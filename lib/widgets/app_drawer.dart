@@ -27,6 +27,7 @@ class AppDrawer extends StatelessWidget {
           ),
           _opcion(context, Icons.home, 'Inicio', '/', actual),
           _opcion(context, Icons.work, 'Portfolio', '/portfolio', actual),
+          _opcion(context, Icons.restaurant_menu, 'Gestión de platos', '/crud', actual),
         ],
       ),
     );
@@ -43,7 +44,7 @@ class AppDrawer extends StatelessWidget {
         textColor: const Color(0xFF463521),
         selected: actual == ruta,
         selectedColor: const Color(0xFF00BF63),
-        selectedTileColor: const Color(0xFF7ED957).withOpacity(0.3),
+        selectedTileColor: const Color(0xFF7ED957),
         shape: const StadiumBorder(),
         onTap: () => context.go(ruta),
       ),
