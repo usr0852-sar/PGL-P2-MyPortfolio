@@ -47,7 +47,9 @@ class HttpService {
   }
 
   dynamic _processResponse(http.Response response) {
+    
     dynamic body;
+        print(response.body);
     try {
       body = jsonDecode(response.body);
     } catch (_) {
