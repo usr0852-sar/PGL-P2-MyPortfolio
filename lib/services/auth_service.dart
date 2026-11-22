@@ -1,6 +1,7 @@
 import 'package:pgl_p2_myportfolio/services/http_service.dart';
 import 'package:pgl_p2_myportfolio/models/login_response.dart';
 import 'package:pgl_p2_myportfolio/services/token_storage.dart';
+import 'package:pgl_p2_myportfolio/exceptions/unauthorized_exception.dart';
 
 class AuthService {
   // Patrón Singleton
@@ -39,5 +40,17 @@ class AuthService {
     final respuesta = LoginResponse.fromJson(data as Map<String, dynamic>);
     await _tokenStorage.save(respuesta.token);
     return respuesta;
+  }
+    /// ¿Hay un token guardado y sigue siendo válido en la API?
+  Future<bool> hasValidSession() async {
+    final token = await _tokenStorage.read();
+    if (token == null) return false;
+    try {
+      await _http.get('$_apiUrl/check-token', token: token);
+      return true;
+    } on UnauthorizedException {
+      await _tokenStorage.delete(); // token caducado o inválido
+      return false;
+    }
   }
 }

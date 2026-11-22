@@ -27,6 +27,8 @@ class AppDrawer extends StatelessWidget {
           ),
           _opcion(context, Icons.home, 'Inicio', '/', actual),
           _opcion(context, Icons.work, 'Portfolio', '/portfolio', actual),
+          _opcion(context, Icons.restaurant_menu, 'Gestión de platos', '/crud', actual),
+
         ],
       ),
     );
