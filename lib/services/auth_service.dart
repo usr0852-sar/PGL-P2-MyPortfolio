@@ -53,4 +53,5 @@ class AuthService {
       return false;
     }
   }
+    Future<void> logout() => _tokenStorage.delete();
 }
