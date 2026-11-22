@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:pgl_p2_myportfolio/exceptions/app_exception.dart';
+import 'package:pgl_p2_myportfolio/services/auth_service.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -11,6 +13,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _nombre = TextEditingController();
   final _email = TextEditingController();
   final _pwd = TextEditingController();
+  final _auth = AuthService.getInstance();
+  bool _cargando = false;
 
   @override
   void dispose() {
@@ -20,6 +24,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
     super.dispose();
   }
 
+  Future<void> _registrar() async {
+    setState(() => _cargando = true);
+    try {
+      final mensaje = await _auth.register(
+        fullName: _nombre.text.trim(),
+        email: _email.text.trim(),
+        pwd: _pwd.text,
+      );
+      print(mensaje);
+    } on AppException catch (e) {
+      print(e.message);
+    } finally {
+      if (mounted) setState(() => _cargando = false);
+    }
+  }
   InputDecoration _decoracion(String label, IconData icono) {
     const marron = Color(0xFF463521);
     return InputDecoration(
@@ -70,6 +89,26 @@ class _RegisterScreenState extends State<RegisterScreen> {
               controller: _pwd,
               obscureText: true,
               decoration: _decoracion('Contraseña', Icons.lock),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _cargando ? null : _registrar,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFFFF751F),
+                  foregroundColor: Colors.white,
+                  shape: const StadiumBorder(),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                child: _cargando
+                    ? const SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      )
+                    : const Text('REGISTRARSE'),
+              ),
             ),
           ],
         ),
