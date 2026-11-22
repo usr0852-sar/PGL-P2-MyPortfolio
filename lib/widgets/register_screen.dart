@@ -23,6 +23,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
     _pwd.dispose();
     super.dispose();
   }
+  Future<void> _alerta(String titulo, String mensaje) {
+    return showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: const Color(0xFFFFF8F1),
+        title: Text(
+          titulo,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF463521),
+          ),
+        ),
+        content: Text(mensaje),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Aceptar'),
+          ),
+        ],
+      ),
+    );
+  }
 
   Future<void> _registrar() async {
     setState(() => _cargando = true);
@@ -32,9 +54,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
         email: _email.text.trim(),
         pwd: _pwd.text,
       );
-      print(mensaje);
+      if (!mounted) return;
+      await _alerta('Registro correcto', mensaje);
     } on AppException catch (e) {
-      print(e.message);
+      if (!mounted) return;
+      await _alerta('Error', e.message);
     } finally {
       if (mounted) setState(() => _cargando = false);
     }
