@@ -15,6 +15,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _pwd = TextEditingController();
   final _auth = AuthService.getInstance();
   bool _cargando = false;
+  String? _errNombre;
+  String? _errEmail;
+  String? _errPwd;
 
   @override
   void dispose() {
@@ -45,8 +48,28 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
     );
   }
+    // Contraseña segura: 8+ caracteres, mayúscula, minúscula y número
+  String? _errorPwd(String p) {
+    if (p.length < 8) return 'Mínimo 8 caracteres';
+    if (!p.contains(RegExp(r'[A-Z]'))) return 'Falta una mayúscula';
+    if (!p.contains(RegExp(r'[a-z]'))) return 'Falta una minúscula';
+    if (!p.contains(RegExp(r'[0-9]'))) return 'Falta un número';
+    return null;
+  }
+
+  bool _validar() {
+    final emailValido =
+        RegExp(r'^[\w.+-]+@[\w-]+(\.[\w-]+)+$').hasMatch(_email.text.trim());
+    setState(() {
+      _errNombre = _nombre.text.trim().length < 3 ? 'Mínimo 3 caracteres' : null;
+      _errEmail = emailValido ? null : 'Email no válido';
+      _errPwd = _errorPwd(_pwd.text);
+    });
+    return _errNombre == null && _errEmail == null && _errPwd == null;
+  }
 
   Future<void> _registrar() async {
+    if (!_validar()) return;
     setState(() => _cargando = true);
     try {
       final mensaje = await _auth.register(
@@ -63,10 +86,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (mounted) setState(() => _cargando = false);
     }
   }
-  InputDecoration _decoracion(String label, IconData icono) {
+  InputDecoration _decoracion(String label, IconData icono, String? error) {
     const marron = Color(0xFF463521);
     return InputDecoration(
       labelText: label,
+      errorText: error,
       labelStyle: const TextStyle(color: marron),
       prefixIcon: Icon(icono, color: marron),
       filled: true,
@@ -100,19 +124,19 @@ class _RegisterScreenState extends State<RegisterScreen> {
           children: [
             TextField(
               controller: _nombre,
-              decoration: _decoracion('Nombre completo', Icons.person),
+              decoration: _decoracion('Nombre completo', Icons.person, _errNombre),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _email,
               keyboardType: TextInputType.emailAddress,
-              decoration: _decoracion('Email', Icons.email),
+              decoration: _decoracion('Email', Icons.email, _errEmail),
             ),
             const SizedBox(height: 16),
             TextField(
               controller: _pwd,
               obscureText: true,
-              decoration: _decoracion('Contraseña', Icons.lock),
+              decoration: _decoracion('Contraseña', Icons.lock, _errPwd),
             ),
             const SizedBox(height: 24),
             SizedBox(
