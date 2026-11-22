@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pgl_p2_myportfolio/exceptions/app_exception.dart';
 import 'package:pgl_p2_myportfolio/services/auth_service.dart';
+import 'package:go_router/go_router.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -79,9 +80,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
       );
       if (!mounted) return;
       await _alerta('Registro correcto', mensaje);
+      if (!mounted) return;
+      await _alerta('Registro correcto', mensaje);
+      if (!mounted) return;
+      context.go('/login');
     } on AppException catch (e) {
       if (!mounted) return;
       await _alerta('Error', e.message);
+      
     } finally {
       if (mounted) setState(() => _cargando = false);
     }
