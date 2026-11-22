@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -63,6 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _pwd,
               obscureText: true,
               decoration: _decoracion('Contraseña', Icons.lock),
+            ),
+                        const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              child: OutlinedButton(
+                onPressed: () => context.push('/register'),
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFF463521),
+                  side: const BorderSide(color: Color(0xFF7ED957), width: 2),
+                  shape: const StadiumBorder(),
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                ),
+                child: const Text('CREAR CUENTA'),
+              ),
             ),
           ],
         ),
