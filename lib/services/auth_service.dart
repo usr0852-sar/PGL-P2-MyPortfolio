@@ -54,4 +54,10 @@ class AuthService {
     }
   }
     Future<void> logout() => _tokenStorage.delete();
+  /// Mensaje de bienvenida personalizado (endpoint protegido con el token).
+  Future<String> getWelcomeMessage() async {
+    final token = await _tokenStorage.read();
+    final data = await _http.get('$_apiUrl/welcome', token: token);
+    return data is Map ? data['message'] as String : 'Bienvenido';
+  }
 }
