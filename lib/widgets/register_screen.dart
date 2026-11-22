@@ -81,8 +81,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       if (!mounted) return;
       await _alerta('Registro correcto', mensaje);
       if (!mounted) return;
-      await _alerta('Registro correcto', mensaje);
-      if (!mounted) return;
       context.go('/login');
     } on AppException catch (e) {
       if (!mounted) return;

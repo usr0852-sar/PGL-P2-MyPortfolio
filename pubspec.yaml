@@ -68,4 +68,8 @@ flutter:
     - assets/images/Pantalla-welcome.png
     - assets/images/portfolio.png
     - assets/images/Sección secreta.png
+    - assets/images/Registro.png
+    - assets/images/Registro-Fallido.png
+    - assets/images/Registro-Exitoso.png
+    - assets/images/mensaje-bienvenida.png
 
