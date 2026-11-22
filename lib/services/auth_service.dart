@@ -1,5 +1,6 @@
 import 'package:pgl_p2_myportfolio/services/http_service.dart';
 import 'package:pgl_p2_myportfolio/models/login_response.dart';
+import 'package:pgl_p2_myportfolio/services/token_storage.dart';
 
 class AuthService {
   // Patrón Singleton
@@ -9,6 +10,7 @@ class AuthService {
 
   static const String _apiUrl = 'https://my-users-api.onrender.com/users';
   final HttpService _http = HttpService.getInstance();
+  final TokenStorage _tokenStorage = TokenStorage.getInstance();
 
   /// Registra un usuario y devuelve el mensaje de la API.
   Future<String> register({
@@ -26,7 +28,7 @@ class AuthService {
         : 'Usuario registrado con éxito.';
   }
     /// Inicia sesión y devuelve un objeto con mensaje, token y usuario.
-  Future<LoginResponse> login({
+    Future<LoginResponse> login({
     required String email,
     required String pwd,
   }) async {
@@ -34,6 +36,8 @@ class AuthService {
       'email': email,
       'pwd': pwd,
     });
-    return LoginResponse.fromJson(data as Map<String, dynamic>);
+    final respuesta = LoginResponse.fromJson(data as Map<String, dynamic>);
+    await _tokenStorage.save(respuesta.token);
+    return respuesta;
   }
 }
