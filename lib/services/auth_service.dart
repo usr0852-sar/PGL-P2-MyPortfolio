@@ -1,4 +1,5 @@
 import 'package:pgl_p2_myportfolio/services/http_service.dart';
+import 'package:pgl_p2_myportfolio/models/login_response.dart';
 
 class AuthService {
   // Patrón Singleton
@@ -23,5 +24,16 @@ class AuthService {
     return data is Map
         ? data['message'] as String
         : 'Usuario registrado con éxito.';
+  }
+    /// Inicia sesión y devuelve un objeto con mensaje, token y usuario.
+  Future<LoginResponse> login({
+    required String email,
+    required String pwd,
+  }) async {
+    final data = await _http.post('$_apiUrl/login', {
+      'email': email,
+      'pwd': pwd,
+    });
+    return LoginResponse.fromJson(data as Map<String, dynamic>);
   }
 }
