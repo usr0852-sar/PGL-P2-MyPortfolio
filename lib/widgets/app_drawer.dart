@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pgl_p2_myportfolio/services/auth_service.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
@@ -28,6 +29,26 @@ class AppDrawer extends StatelessWidget {
           _opcion(context, Icons.home, 'Inicio', '/', actual),
           _opcion(context, Icons.work, 'Portfolio', '/portfolio', actual),
           _opcion(context, Icons.restaurant_menu, 'Gestión de platos', '/crud', actual),
+          
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+            child: ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text(
+                'Cerrar sesión',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              iconColor: const Color(0xFFC92A2A),
+              textColor: const Color(0xFFC92A2A),
+              shape: const StadiumBorder(),
+              onTap: () async {
+                await AuthService.getInstance().logout();
+                if (!context.mounted) return;
+                context.go('/login');
+              },
+            ),
+          ),
 
         ],
       ),
