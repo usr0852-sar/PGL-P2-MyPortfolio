@@ -14,9 +14,29 @@ class _LoginScreenState extends State<LoginScreen> {
   final _email = TextEditingController();
   final _pwd = TextEditingController();
   final _auth = AuthService.getInstance();
-  bool _cargando = false;
+  bool _cargando = true;
   String? _errEmail;
   String? _errPwd;
+  
+  @override
+  void initState() {
+    super.initState();
+    _comprobarSesion();
+  }
+
+  Future<void> _comprobarSesion() async {
+    try {
+      final valida = await _auth.hasValidSession();
+      if (!mounted) return;
+      if (valida) {
+        context.go('/');
+        return;
+      }
+    } on AppException {
+      // Sin conexión o API caída: nos quedamos en el login
+    }
+    if (mounted) setState(() => _cargando = false);
+  }
 
   @override
   void dispose() {
