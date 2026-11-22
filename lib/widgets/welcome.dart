@@ -1,11 +1,45 @@
 import 'package:flutter/material.dart';
 import 'app_drawer.dart';
+import 'package:pgl_p2_myportfolio/exceptions/app_exception.dart';
+import 'package:pgl_p2_myportfolio/services/auth_service.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({super.key});
 
+    Future<void> _saludar(BuildContext context) async {
+    String titulo = 'Bienvenida';
+    String mensaje;
+    try {
+      mensaje = await AuthService.getInstance().getWelcomeMessage();
+    } on AppException catch (e) {
+      titulo = 'Error';
+      mensaje = e.message;
+    }
+    if (!context.mounted) return;
+    await showDialog<void>(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: const Color(0xFFFFF8F1),
+        title: Text(
+          titulo,
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Color(0xFF463521),
+          ),
+        ),
+        content: Text(mensaje),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Aceptar'),
+          ),
+        ],
+      ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       drawer: const AppDrawer(),
       body: Column(
@@ -51,7 +85,7 @@ class Welcome extends StatelessWidget {
               ],
             ),
           ),
-          Container(
+            Container(
             width: double.infinity,
             color: const Color(0xFF75675A),
             padding: const EdgeInsets.symmetric(vertical: 20),
@@ -59,23 +93,45 @@ class Welcome extends StatelessWidget {
               top: false,
               child: Center(
                 child: Builder(
-                  builder: (context) => ElevatedButton.icon(
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xFFFF751F),
-                      foregroundColor: Colors.white,
-                      shape: const StadiumBorder(),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 28,
-                        vertical: 14,
+                  builder: (context) => Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ElevatedButton.icon(
+                        onPressed: () => Scaffold.of(context).openDrawer(),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFFF751F),
+                          foregroundColor: Colors.white,
+                          shape: const StadiumBorder(),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 28,
+                            vertical: 14,
+                          ),
+                        ),
+                        label: const Text('EXPLORAR PLATOS'),
+                        icon: const Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xFF7ED957),
+                        ),
+                        iconAlignment: IconAlignment.end,
                       ),
-                    ),
-                    label: const Text('EXPLORAR PLATOS'),
-                    icon: const Icon(
-                      Icons.arrow_forward,
-                      color: Color(0xFF7ED957),
-                    ),
-                    iconAlignment: IconAlignment.end,
+                      const SizedBox(height: 12),
+                      OutlinedButton(
+                        onPressed: () => _saludar(context),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(
+                            color: Color(0xFF7ED957),
+                            width: 2,
+                          ),
+                          shape: const StadiumBorder(),
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 28,
+                            vertical: 14,
+                          ),
+                        ),
+                        child: const Text('MENSAJE DE BIENVENIDA'),
+                      ),
+                    ],
                   ),
                 ),
               ),
